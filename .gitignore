@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+.venv/
+venv/
+data/
+models/
+
+# FastAPI/Build
+*.sqlite3
+*.db
+
+# Node/Next.js
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/.turbo/
+npm-debug.log*
+yarn-error.log*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
