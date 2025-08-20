@@ -60,12 +60,16 @@ def derive_slot(now: datetime | None = None) -> str:
     return "evening" # 17:00–23:59
 
 # ---------- app & middlewares ----------
+import os
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Face Attendance", version="1.0.0")
 
-# CORS: DEV ใช้ * ง่ายกว่า (ห้าม credentials); ถ้าต้องการ credentials ระบุโดเมนให้ตรง
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # ปรับตามโดเมน frontend ของคุณ
+    allow_origins=[o.strip() for o in ALLOWED_ORIGINS],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
