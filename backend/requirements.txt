@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+gunicorn
+sqlmodel
+sqlalchemy
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+numpy
+pillow
+opencv-python-headless
+insightface
+onnxruntime

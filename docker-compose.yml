@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    environment:
+      - JWT_SECRET=devsecret
+      - JWT_TTL_MIN=240
+      - DB_URL=sqlite:///app/db.sqlite3
+    ports: ["8000:8000"]
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    command: sh -c "npm ci && npm run dev"
+    ports: ["3000:3000"]
