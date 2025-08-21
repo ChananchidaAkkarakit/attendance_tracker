@@ -21,6 +21,8 @@ from fastapi import Depends
 from .models import User
 from .deps import require_admin
 from .deps import require_admin, init_db, engine  # เพิ่ม engine เข้ามาด้วย
+import os
+
 
 # ---------- constants & utils ----------
 
@@ -60,22 +62,21 @@ def derive_slot(now: datetime | None = None) -> str:
     return "evening" # 17:00–23:59
 
 # ---------- app & middlewares ----------
-import os
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Face Attendance", version="1.0.0")
 
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+origins = [
+    "https://attendance-tracker-woad-one.vercel.app",
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[o.strip() for o in ALLOWED_ORIGINS],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# init db (สร้างตารางอัตโนมัติถ้ายังไม่มี)
 # init db (สร้างตารางอัตโนมัติถ้ายังไม่มี)
 init_db()
 
